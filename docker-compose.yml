@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  mysql:
+    image: mysql:latest
+    container_name: agenda-db
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=agenda
+      - MYSQL_DATABASE=agenda_api
+      - MYSQL_USER=agenda
+      - MYSQL_PASSWORD=agenda
+  php:
+    image: ambientum/php:latest-nginx
+    container_name: agenda-api
+    volumes:
+      - .:/var/www/app
+    ports:
+      - "8000:8080"
+    depends_on:
+      - mysql
