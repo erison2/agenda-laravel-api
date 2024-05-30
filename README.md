@@ -128,4 +128,3 @@ Esta é uma aplicação de API de agenda construída com Laravel. Esta documenta
 ## Conclusão
 
 Seguindo esses passos, você deve ser capaz de configurar, rodar e testar a API de agenda desenvolvida com Laravel. Se tiver algum problema durante o processo, verifique os logs do Laravel para obter mais detalhes sobre o que pode estar errado.
-```
