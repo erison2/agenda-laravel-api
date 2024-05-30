@@ -1,64 +1,151 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Agenda Laravel API
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Esta é uma aplicação de API de agenda construída com Laravel e Docker. Esta documentação fornece as instruções necessárias para configurar e rodar a aplicação.
 
-## About Laravel
+## Pré-requisitos
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Docker
+- Docker Compose
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Configuração Inicial
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1. **Criar e Configurar o Arquivo `.env`**
 
-## Learning Laravel
+   Crie o arquivo `.env` a partir do exemplo e configure as variáveis de ambiente:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+   ```bash
+   cp .env.example .env
+   ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+   Edite o arquivo `.env` e configure as variáveis de ambiente, especialmente as configurações do banco de dados:
 
-## Laravel Sponsors
+   ```env
+   APP_NAME="Agenda API"
+   APP_ENV=local
+   APP_KEY=base64:WgNJySLlFkersvG5bsFg6tP/R1kzrMiBlWksntKHoL8=
+   APP_DEBUG=true
+   APP_URL=http://localhost
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+   LOG_CHANNEL=stack
+   LOG_DEPRECATIONS_CHANNEL=null
+   LOG_LEVEL=debug
 
-### Premium Partners
+   DB_CONNECTION=mysql
+   DB_HOST=mysql
+   DB_PORT=3306
+   DB_DATABASE=app_api
+   DB_USERNAME=app
+   DB_PASSWORD=app
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+   BROADCAST_DRIVER=log
+   CACHE_DRIVER=file
+   FILESYSTEM_DISK=local
+   QUEUE_CONNECTION=sync
+   SESSION_DRIVER=file
+   SESSION_LIFETIME=120
 
-## Contributing
+   SANCTUM_STATEFUL_DOMAINS=localhost:8000
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+2. **Subir os Containers Docker**
 
-## Code of Conduct
+   Inicie os containers usando o comando abaixo:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+   ```bash
+   docker-compose up -d
+   ```
 
-## Security Vulnerabilities
+3. **Instalar Dependências**
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+   Entre no container do PHP e instale as dependências do Composer:
 
-## License
+   ```bash
+   docker exec -it agenda-api bash
+   composer install
+   ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+4. **Gerar a Chave da Aplicação**
+
+   Ainda dentro do container, gere a chave da aplicação:
+
+   ```bash
+   php artisan key:generate
+   ```
+
+5. **Rodar as Migrações e Seeders**
+
+   Execute as migrações para criar as tabelas no banco de dados e popule-as com dados iniciais usando os seeders:
+
+   ```bash
+   php artisan migrate --seed
+   ```
+
+6. **Gerar a Documentação Swagger (se necessário)**
+
+   Se estiver usando o Swagger, gere a documentação:
+
+   ```bash
+   php artisan l5-swagger:generate
+   ```
+
+## Acessar a Aplicação
+
+- A aplicação estará disponível em: [http://localhost:8000](http://localhost:8000)
+- A documentação Swagger estará disponível em: [http://localhost:8000/api/documentation](http://localhost:8000/api/documentation)
+
+## Testando a API
+
+1. **Registrar um Usuário (se necessário)**
+
+   Use o Laravel Tinker para registrar um usuário no banco de dados:
+
+   ```bash
+   docker exec -it agenda-api bash
+   php artisan tinker
+   ```
+
+   Dentro do Tinker:
+
+   ```php
+   \App\Models\User::create([
+       'name' => 'Test User',
+       'email' => 'user@example.com',
+       'password' => bcrypt('password'),
+   ]);
+   ```
+
+2. **Fazer Login e Obter o Token**
+
+   Use `curl` ou Postman para fazer login e obter um token:
+
+   ```bash
+   curl -X POST http://localhost:8000/api/login \
+   -H "Content-Type: application/json" \
+   -d '{
+     "email": "user@example.com",
+     "password": "password"
+   }'
+   ```
+
+3. **Usar o Token para Acessar Rotas Protegidas**
+
+   Use o token obtido para acessar as rotas protegidas, por exemplo, para criar uma atividade:
+
+   ```bash
+   curl -X POST http://localhost:8000/api/activities \
+   -H "Content-Type: application/json" \
+   -H "Authorization: Bearer YOUR_AUTH_TOKEN" \
+   -d '{
+     "title": "Meeting",
+     "type": "Work",
+     "description": "Project meeting",
+     "user_id": 1,
+     "start_date": "2023-05-01 10:00:00",
+     "end_date": "2023-05-01 11:00:00"
+   }'
+   ```
+
+## Conclusão
+
+Seguindo esses passos, você deve ser capaz de configurar, rodar e testar a API de agenda desenvolvida com Laravel. Se tiver algum problema durante o processo, verifique os logs do Laravel para obter mais detalhes sobre o que pode estar errado.
+```

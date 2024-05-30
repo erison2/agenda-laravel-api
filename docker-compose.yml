@@ -9,7 +9,7 @@ services:
       - MYSQL_ROOT_PASSWORD=agenda
       - MYSQL_DATABASE=agenda_api
       - MYSQL_USER=agenda
-      - MYSQL_PASSWORD=agenda
+      - MYSQL_PASSWORD=agenda    
   php:
     image: ambientum/php:latest-nginx
     container_name: agenda-api
