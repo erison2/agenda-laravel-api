@@ -10,6 +10,9 @@ services:
       - MYSQL_DATABASE=agenda_api
       - MYSQL_USER=agenda
       - MYSQL_PASSWORD=agenda
+    volumes:
+      - db_data:/var/lib/mysql
+
   php:
     image: ambientum/php:latest-nginx
     container_name: agenda-api
@@ -19,3 +22,6 @@ services:
       - "8000:8080"
     depends_on:
       - mysql
+
+volumes:
+  db_data:
