@@ -1,8 +1,13 @@
 <?php
 
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('activities', ActivityController::class);
+Route::group(['prefix' => 'api'], function () {
+    Route::post('login', [AuthController::class, 'login']);
+
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::apiResource('activities', ActivityController::class);
+    });
 });
