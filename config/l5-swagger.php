@@ -8,7 +8,7 @@ return [
                 'title' => 'Agenda API',
             ],
             'routes' => [
-                'api' => 'api/documentation',
+                'api' => 'api/v1/documentation',
             ],
             'paths' => [
                 'docs' => storage_path('api-docs'),

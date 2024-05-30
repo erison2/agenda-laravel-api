@@ -6,13 +6,13 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/api/activities": {
+        "/api/v1/activities": {
             "get": {
                 "tags": [
                     "Activities"
                 ],
                 "summary": "Get list of activities",
-                "operationId": "53e7a0b67f6097ed90245000764b2e5e",
+                "operationId": "9d6fc7cda8d88babd7b7ad35e545b242",
                 "responses": {
                     "200": {
                         "description": "List of activities"
@@ -32,7 +32,7 @@
                     "Activities"
                 ],
                 "summary": "Create a new activity",
-                "operationId": "8aa12114961e22767ecdad7c24be367e",
+                "operationId": "a5a5be597be82ddc130319849bdf73f9",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -136,13 +136,13 @@
                 ]
             }
         },
-        "/api/activities/{id}": {
+        "/api/v1/activities/{id}": {
             "get": {
                 "tags": [
                     "Activities"
                 ],
                 "summary": "Get activity by ID",
-                "operationId": "6d75cdd5535b9b12358448ec198faba4",
+                "operationId": "5310e750b75756c2ac8946ac55013a14",
                 "parameters": [
                     {
                         "name": "id",
@@ -175,7 +175,7 @@
                     "Activities"
                 ],
                 "summary": "Update activity",
-                "operationId": "064379988a5fe2c974ae5ab18f0cddfd",
+                "operationId": "f99141981642032579b60b058c8a3ef1",
                 "parameters": [
                     {
                         "name": "id",
@@ -248,7 +248,7 @@
                     "Activities"
                 ],
                 "summary": "Delete activity",
-                "operationId": "d822403ad9a85feb951b1073858a072d",
+                "operationId": "2be30b0c0fb161118030faec5f7884c2",
                 "parameters": [
                     {
                         "name": "id",
@@ -277,13 +277,13 @@
                 ]
             }
         },
-        "/api/login": {
+        "/api/v1/login": {
             "post": {
                 "tags": [
                     "Authentication"
                 ],
                 "summary": "User login",
-                "operationId": "a3b306d14572d1f4bd6c064b3233e7b8",
+                "operationId": "da2ca4d7a5cdec77b8b45a20373535cb",
                 "requestBody": {
                     "required": true,
                     "content": {
