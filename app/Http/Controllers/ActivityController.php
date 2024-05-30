@@ -27,7 +27,7 @@ class ActivityController extends Controller
 {
     /**
      * @OA\Get(
-     *     path="/api/activities",
+     *     path="/api/v1/activities",
      *     summary="Get list of activities",
      *     tags={"Activities"},
      *     security={{"sanctum":{}}},
@@ -54,7 +54,7 @@ class ActivityController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/activities",
+     *     path="/api/v1/activities",
      *     summary="Create a new activity",
      *     tags={"Activities"},
      *     security={{"sanctum":{}}},
@@ -131,7 +131,7 @@ class ActivityController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/api/activities/{id}",
+     *     path="/api/v1/activities/{id}",
      *     summary="Get activity by ID",
      *     tags={"Activities"},
      *     security={{"sanctum":{}}},
@@ -163,7 +163,7 @@ class ActivityController extends Controller
 
     /**
      * @OA\Put(
-     *     path="/api/activities/{id}",
+     *     path="/api/v1/activities/{id}",
      *     summary="Update activity",
      *     tags={"Activities"},
      *     security={{"sanctum":{}}},
@@ -250,7 +250,7 @@ class ActivityController extends Controller
 
     /**
      * @OA\Delete(
-     *     path="/api/activities/{id}",
+     *     path="/api/v1/activities/{id}",
      *     summary="Delete activity",
      *     tags={"Activities"},
      *     security={{"sanctum":{}}},

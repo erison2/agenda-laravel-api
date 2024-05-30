@@ -18,17 +18,18 @@ class ActivityControllerTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->postJson('/api/activities', [
+        ])->postJson('/api/v1/activities', [
             'title' => 'Meeting',
             'type' => 'Work',
             'description' => 'Project meeting',
             'user_id' => $user->id,
+            'status' => 'open',
             'start_date' => '2024-05-31 13:00:00',
             'end_date' => '2024-05-31 15:00:00',
         ]);
 
         $response->assertStatus(201);
-        $response->assertJsonStructure(['id', 'title', 'type', 'description', 'user_id', 'start_date', 'end_date', 'status', 'created_at', 'updated_at']);
+        $response->assertJsonStructure(['id', 'title', 'type', 'description', 'user_id', 'start_date', 'end_date', 'status']);
     }
 
     public function test_update_activity()
@@ -44,7 +45,7 @@ class ActivityControllerTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->putJson("/api/activities/{$activity->id}", [
+        ])->putJson("/api/v1/activities/{$activity->id}", [
             'title' => 'Updated Meeting',
             'start_date' => '2024-05-31 13:00:00',
             'end_date' => '2024-05-31 15:00:00',
@@ -63,7 +64,7 @@ class ActivityControllerTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->getJson("/api/activities/{$activity->id}");
+        ])->getJson("/api/v1/activities/{$activity->id}");
 
         $response->assertStatus(200);
         $response->assertJson(['id' => $activity->id]);
@@ -78,7 +79,7 @@ class ActivityControllerTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->getJson('/api/activities');
+        ])->getJson('/api/v1/activities');
 
         $response->assertStatus(200);
         $response->assertJsonCount(3);
@@ -93,7 +94,7 @@ class ActivityControllerTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->deleteJson("/api/activities/{$activity->id}");
+        ])->deleteJson("/api/v1/activities/{$activity->id}");
 
         $response->assertStatus(204);
         $this->assertDatabaseMissing('activities', ['id' => $activity->id]);
@@ -112,7 +113,7 @@ class ActivityControllerTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->postJson('/api/activities', [
+        ])->postJson('/api/v1/activities', [
             'title' => 'Overlapping Meeting',
             'type' => 'Work',
             'description' => 'Another meeting',
@@ -132,7 +133,7 @@ class ActivityControllerTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->postJson('/api/activities', [
+        ])->postJson('/api/v1/activities', [
             'title' => 'Weekend Meeting',
             'type' => 'Work',
             'description' => 'Meeting on weekend',

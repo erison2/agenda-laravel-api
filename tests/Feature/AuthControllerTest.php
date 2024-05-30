@@ -17,7 +17,7 @@ class AuthControllerTest extends TestCase
             'password' => bcrypt('password'),
         ]);
 
-        $response = $this->postJson('/api/login', [
+        $response = $this->postJson('/api/v1/login', [
             'email' => 'john.doe@domain.com',
             'password' => 'password',
         ]);
@@ -33,7 +33,7 @@ class AuthControllerTest extends TestCase
             'password' => bcrypt('password'),
         ]);
 
-        $response = $this->postJson('/api/login', [
+        $response = $this->postJson('/api/v1/login', [
             'email' => 'john.doe@domain.com',
             'password' => 'wrongpassword',
         ]);
